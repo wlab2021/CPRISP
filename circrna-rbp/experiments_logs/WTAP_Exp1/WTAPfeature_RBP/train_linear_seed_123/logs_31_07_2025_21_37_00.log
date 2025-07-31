@@ -1,0 +1,21 @@
+=============================================
+Dataset: WTAP
+Method:  MISSM
+=============================================
+Training started ....
+
+Epoch : 1
+Train Loss : 0.6237	 | 	 Accuracy : 0.6534 | 	 AUC : 0.7450 | 	 Precision : 0.6534 | 	 Recall : 0.6534
+Test Loss : 0.5823	 | 	 Accuracy : 0.6797 | 	 AUC : 0.9286 | 	 Precision : 1.0000 | 	 Recall : 0.3024
+
+Epoch : 2
+Train Loss : 0.3424	 | 	 Accuracy : 0.8580 | 	 AUC : 0.9340 | 	 Precision : 0.8580 | 	 Recall : 0.8580
+Test Loss : 0.3635	 | 	 Accuracy : 0.9297 | 	 AUC : 0.9779 | 	 Precision : 0.9808 | 	 Recall : 0.8667
+
+Epoch : 3
+Train Loss : 0.1801	 | 	 Accuracy : 0.9276 | 	 AUC : 0.9861 | 	 Precision : 0.9276 | 	 Recall : 0.9276
+Test Loss : 0.2214	 | 	 Accuracy : 0.9453 | 	 AUC : 0.9961 | 	 Precision : 0.9167 | 	 Recall : 0.9839
+
+Epoch : 4
+Train Loss : 0.1455	 | 	 Accuracy : 0.9375 | 	 AUC : 0.9905 | 	 Precision : 0.9375 | 	 Recall : 0.9375
+Test Loss : 0.1629	 | 	 Accuracy : 0.9922 | 	 AUC : 1.0000 | 	 Precision : 1.0000 | 	 Recall : 0.9800

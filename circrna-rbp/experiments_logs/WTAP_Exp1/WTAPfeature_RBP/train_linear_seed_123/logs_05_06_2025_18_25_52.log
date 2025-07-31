@@ -1,0 +1,12 @@
+=============================================
+Dataset: WTAP
+Method:  MISSM
+=============================================
+Training started ....
+
+Epoch : 1
+Train Loss : 0.5908	 | 	 Accuracy : 0.6321 | 	 AUC : 0.7308 | 	 Precision : 0.6321 | 	 Recall : 0.6321
+Test Loss : 0.6265	 | 	 Accuracy : 0.6250 | 	 AUC : 0.7677 | 	 Precision : 0.8750 | 	 Recall : 0.1152
+
+################## Training is Done! #########################
+Training time is : 0:00:06.562426
