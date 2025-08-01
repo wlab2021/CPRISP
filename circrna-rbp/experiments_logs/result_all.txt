@@ -1,2 +1,0 @@
-dataset:WTAP
-epoch:1	 | 	max_test_acc: 0.6250 	 | 	max_test_auc: 0.7677 | 	max_test_precision: 0.8750 | 	max_test_recall: 0.1152
