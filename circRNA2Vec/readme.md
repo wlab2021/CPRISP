@@ -1,0 +1,1 @@
+Due to space limitations, the circRNA2Vec model used in the experiments has been uploaded to <a href="https://drive.google.com/drive/folders/1IcmhA3no6cT4ec5JHCu5TQI-TWJf5ys_?usp=sharing">Google Drive</a>. Please download it and place it in the corresponding model folder.
