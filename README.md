@@ -47,7 +47,7 @@ $ conda env create -f CPRISP.yml
 
 # Usage
 
-Due to limited GitHub space, the original data and the circRNA2Vec model required for training can be obtained via this link: <a href="https://drive.google.com/drive/folders/1IcmhA3no6cT4ec5JHCu5TQI-TWJf5ys_?usp=sharing">Dataset and Model</a>. 
+Due to limited GitHub space, the original data and the circRNA2Vec model required for training can be obtained via this link: <a href="https://drive.google.com/drive/folders/1OSetKafjPcpxeEIIH2i3Q_ifDMfPjG4V?usp=drive_link">Dataset and Model</a>. 
 
 Please place the dataset in the datasets folder and the circRNA2Vec model in the circRNA2Vec folder.
 
