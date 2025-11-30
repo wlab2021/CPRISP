@@ -8,7 +8,7 @@
 
 # Overview
 Accurate identification of circular RNA (circRNA)-protein interactions is essential for understanding post-transcriptional regulation and its disruption in complex diseases such as neurodegeneration. Here, we present CPRISP, a deep learning framework for predicting circRNA-RNA-binding protein (RBP) interaction sites by integratively modeling sequence and structural characteristics of circRNAs along with protein-specific features. CPRISP extracts multi-view circRNA representations using k-mer frequency, physicochemical encodings, secondary structure profiles, and pretrained embeddings, while simultaneously modeling RBP sequence signals to capture both local and global binding preferences. Through hierarchical residual encoding and adaptive feature fusion, the model achieves robust and generalizable predictions across diverse RBPs. Comprehensive evaluation on benchmark datasets demonstrates that CPRISP outperforms state-of-the-art methods in predictive accuracy and cross-cell line generalization. Model interpretation highlights the importance of conserved single-stranded motifs in binding site recognition. Applying CPRISP to 172 RBPs, we identify disease-relevant regulatory targets and pathways associated with Alzheimer’s disease, Parkinson’s disease, and amyotrophic lateral sclerosis. Functional enrichment and regulatory network analysis reveal convergent disruption of nucleocytoplasmic transport, lysosomal signaling, and GTPase activity across diseases. Furthermore, transcriptome-based compound screening uncovers repositionable therapeutic candidates, including metformin, N-acetylcysteine, and ambroxol, which target CPRISP-predicted RBP–gene axes. Together, these results establish CPRISP as a scalable and interpretable platform for decoding circRNA-RBP regulatory networks and guiding therapeutic discovery in neurodegenerative disorders.
-![CPRISP](https://github.com/wlab2021/CPRISP/blob/main/CPRISP.tif)  
+![CPRISP](https://github.com/wlab2021/CPRISP/blob/main/CPRISP.png)  
 
 # System Requirements
 
@@ -54,7 +54,7 @@ Please place the dataset in the datasets folder and the circRNA2Vec model in the
 
 Then, you can train a model on a specific RBP dataset using the following command (taking WTAP as an example):
 ```
-$ python main.py --datasets WTAP --epoch 30 --is_train
+$ python main.py --datasets WTAP --epoch 30 --isTrain
 ```
 *Runtime (NVIDIA-A40 GPU, epoch = 30, taking WTAP as an example):*
 + *Data preprocessing: ~13s*
@@ -67,7 +67,7 @@ $ python main.py --datasets WTAP --epoch 30 --is_train
 
 Of course, you can also train on multiple RBP datasets simultaneously.
 ```
-$ python main.py --datasets AGO1 AGO2 AGO3 --epoch 30 --is_train
+$ python main.py --datasets AGO1 AGO2 AGO3 --epoch 30 --isTrain
 ```
 
 After training, you can validate the model by using (taking WTAP as an example):
