@@ -14,7 +14,7 @@ Accurate identification of circular RNA (circRNA)-protein interactions is essent
 
 ## Hardware environment
 + Physical Memory: 503GB.   
-+ GPU: RTX-4090.
++ GPU: NVIDIA-GeForce-RTX-4090.
 
 ## Software requirements
 ### OS Requirements
@@ -44,6 +44,7 @@ You can also create the required environment for xxx by using the provided envir
 ```
 $ conda env create -f CPRISP.yml 
 ```
++ **Installation time**: ~28m, depending on download speed.
 
 # Usage
 
@@ -55,6 +56,14 @@ Then, you can train a model on a specific RBP dataset using the following comman
 ```
 $ python main.py --datasets WTAP --epoch 30 --is_train
 ```
+*Runtime (NVIDIA-A40 GPU, epoch = 30, taking WTAP as an example):*
++ *Data preprocessing: ~13s*
++ *Model training: ~19m14s*
++ *Total time: ~19m27s*
+
+*Outputs:：*
++ *Training loss and progress are displayed automatically.*
++ *Model checkpoints and logs are saved under:./experiments_logs/WTAP_Exp1*
 
 Of course, you can also train on multiple RBP datasets simultaneously.
 ```
@@ -66,7 +75,12 @@ After training, you can validate the model by using (taking WTAP as an example):
 ```
 $ python main.py --datasets WTAP
 ```
- 
+*Runtime (NVIDIA-A40 GPU, taking WTAP as an example):*
++ *Testing runtime: ~16s*
+
+*Outputs:：*
++ *Prediction results are printed automatically in the console.*
+
 
 # License
 This project is covered under the **MIT License**.
