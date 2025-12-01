@@ -1,7 +1,0 @@
-tensorflow
-tensorflow_addons
-numpy
-pandas
-h5py
-lxml
-pyfaidx
