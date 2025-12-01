@@ -81,6 +81,7 @@ $ python main.py --datasets WTAP
 *Outputs:：*
 + *Prediction results are printed automatically in the console.*
 
+![CPRISP](https://github.com/wlab2021/CPRISP/blob/main/pic/test.png)  
 
 # License
 This project is covered under the **MIT License**.
