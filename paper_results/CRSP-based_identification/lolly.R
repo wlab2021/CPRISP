@@ -7,26 +7,26 @@ library(ggplot2)
 
 windowsFonts(TNR = windowsFont("Times New Roman"))
 
-# 读取数据
+# read data
 data <- read_excel("results/DM1-male.xlsx")
 
-# 设置因子顺序
+# 
 data$Name = factor(data$Name,
                    levels = c("CSCRSites", "CRIP", "iCircRBP-DHN", "CRBPDL",
                               "HCRNet", "CircSSNN", "CRSP"))
 
-# 设置颜色
+# set color
 Color = c("#9F79EE", "#FFCC66", "#1ABCC2", "#CA6FAC", "#6F94CD",
           "#8FBC8F", "#FF2400", "purple", "red")
 
-# 创建棒棒糖图
+# lolly
 p <- ggplot(data, aes(x=Value, y=Name)) +
   geom_segment(aes(x=0, xend=Value, yend=Name, color=Name), linewidth=1) +
   geom_point(aes(color=Name), size=8) +
   geom_point(aes(color=Name), size=10, shape=21, fill=NA) +
   geom_text(aes(label=Value), hjust=0.5, vjust=2.7, fontface = "bold") +
   scale_color_manual(values=Color) +
-  coord_cartesian(xlim = c(0, 1)) +  # 限制可视范围为0~1，避免截断图元
+  coord_cartesian(xlim = c(0, 1)) +  # Restrict the visible range to 0–1 to prevent clipping of graphic elements
   labs(x="AUC", y="") +
   ggtitle("DM1-male") +
   theme_classic() +
@@ -39,13 +39,14 @@ p <- ggplot(data, aes(x=Value, y=Name)) +
     panel.grid.major = element_line(color="grey", linewidth=0.2),
     panel.grid.minor = element_line(color="grey", linewidth=0.1),
     axis.title = element_text(face="bold", size=14),
-    axis.title.x = element_text(margin = margin(t = 15)),  # x轴标题下移
-    axis.title.y = element_text(margin = margin(r = 20)),  # y轴标题左移
+    axis.title.x = element_text(margin = margin(t = 15)),  # X-axis label shifted down
+    axis.title.y = element_text(margin = margin(r = 20)),  # Y-axis label shifted left
     axis.text = element_text(face="bold", size=12)
   )
 
-# 显示图
+# 
 print(p)
 
-# 保存为SVG文件
+# Save as an SVG file
 ggsave("res/DM1-male.svg", plot = p, width=8, height=5.4)
+
