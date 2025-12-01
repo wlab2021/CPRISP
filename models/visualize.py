@@ -1,18 +1,21 @@
 import os, sys
 import numpy as np
 import matplotlib as mpl
+from matplotlib import colors, patheffects
+from matplotlib.patches import FancyBboxPatch
+
 mpl.use("pdf")
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from skimage.transform import resize as imresize
 import torch
+import matplotlib.cm as cm
 # import datautils as datautils
 from PIL import Image
 
 
 # acgu_path = '/home/zhuhaoran/MyNet/acgu.npz'
 # chars = np.load(acgu_path,allow_pickle=True)['data']
-
 
 def inference(args, model, device, test_loader):
     model.eval()
@@ -33,44 +36,44 @@ def inference(args, model, device, test_loader):
 def normalize_pwm(pwm, factor=None, MAX=None):
     if MAX is None:
         MAX = np.max(np.abs(pwm))
-    pwm = pwm/MAX
+    pwm = pwm / MAX
     if factor:
-        pwm = np.exp(pwm*factor)
+        pwm = np.exp(pwm * factor)
     norm = np.outer(np.ones(pwm.shape[0]), np.sum(np.abs(pwm), axis=0))
-    return pwm/norm
+    return pwm / norm
 
 
 def get_nt_height(pwm, height, norm):
-
     def entropy(p):
         s = 0
         for i in range(len(p)):
             if p[i] > 0:
-                s -= p[i]*np.log2(p[i])
+                s -= p[i] * np.log2(p[i])
         return s
 
     num_nt, num_seq = pwm.shape
-    heights = np.zeros((num_nt,num_seq))
+    heights = np.zeros((num_nt, num_seq))
     for i in range(num_seq):
         if norm == 1:
             total_height = height
         else:
-            total_height = (np.log2(num_nt) - entropy(pwm[:, i]))*height
-        
-        heights[:,i] = np.floor(pwm[:,i]*np.minimum(total_height, height*2))
+            total_height = (np.log2(num_nt) - entropy(pwm[:, i])) * height
+
+        heights[:, i] = np.floor(pwm[:, i] * np.minimum(total_height, height * 2))
 
     return heights.astype(int)
 
 
-def seq_logo(pwm, height=30, nt_width=10, norm=0, alphabet='rna', colormap='standard'):
-    acgu_path = './acgu.npz'
-    chars = np.load(acgu_path,allow_pickle=True)['data']
+# def seq_logo(pwm, height=30, nt_width=10, norm=0, alphabet='rna', colormap='standard'):
+def seq_logo(pwm, height=30, nt_width=10, norm=0):
+    acgu_path = '../acgu.npz'
+    chars = np.load(acgu_path, allow_pickle=True)['data']
     heights = get_nt_height(pwm, height, norm)
     num_nt, num_seq = pwm.shape
-    width = np.ceil(nt_width*num_seq).astype(int)
+    width = np.ceil(nt_width * num_seq).astype(int)
 
-    max_height = height*2
-    logo = np.ones((max_height, width, 3)).astype(int)*255
+    max_height = height * 2
+    logo = np.ones((max_height, width, 3)).astype(int) * 255
     for i in range(num_seq):
         nt_height = np.sort(heights[:, i])
         index = np.argsort(heights[:, i])
@@ -106,51 +109,82 @@ def plot_saliency(X, W, nt_width=100, norm_factor=3, str_null=None, outdir="pic/
 
     img_seq_raw = seq_logo(X[:4, plot_index], height=nt_width, nt_width=nt_width)
 
-    # if seq_str_mode:
-    #     str_raw = X[4, plot_index]
-    #     if str_null.sum() > 0:
-    #         str_raw[str_null.T == 1] = -0.01
-
-        # line_str_raw = np.zeros(trace_width)
-        # for v in range(str_raw.shape[0]):
-        #     line_str_raw[v * nt_width:(v + 1) * nt_width] = (1 - str_raw[v]) * trace_height
-
     seq_sal = normalize_pwm(W[:4, plot_index], factor=norm_factor)
     img_seq_sal_logo = seq_logo(seq_sal, height=nt_width * 5, nt_width=nt_width)
     img_seq_sal = imresize(W[:4, plot_index], output_shape=(trace_height, trace_width))
 
-    # if seq_str_mode:
-        # str_sal = W[4, plot_index].reshape(1, -1)
-        # img_str_sal = imresize(str_sal, output_shape=(trace_height, trace_width))
+    fig = plt.figure(figsize=(10, 2))
 
-    fig = plt.figure(figsize=(10.1, 2))
-    gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[2.5, 1, 0.5, 1])
-    cmap_reversed = mpl.cm.get_cmap('jet')
+    # gs = gridspec.GridSpec(nrows=4, ncols=1, height_ratios=[2.5, 1, 0.5,1])
 
-    ax = fig.add_subplot(gs[0, 0])
-    ax.axis('off')
-    ax.imshow(img_seq_sal_logo)
-    # plt.text(x=trace_width - 400, y=10, s='HDRNet', fontsize=4)
+    gs = gridspec.GridSpec(
+        nrows=2,
+        ncols=1,
+        height_ratios=[2, 1.5],
+        hspace=-0.25
+    )
 
-    ax = fig.add_subplot(gs[1, 0])
-    ax.axis('off')
-    ax.imshow(img_seq_sal, cmap=cmap_reversed)
+    # cmap_reversed = mpl.cm.get_cmap('gist_earth')
+    # cmap_reversed = mpl.cm.get_cmap('gist_ncar')
+    # cmap_reversed = mpl.cm.get_cmap('PuRd')
+    # cmap_reversed = mpl.cm.get_cmap('YlOrBr')
+    cmap_reversed = mpl.cm.get_cmap('Greens')
+    # cmap_reversed = mpl.cm.get_cmap('GnBu')
+    # cmap_reversed = mpl.cm.get_cmap('Blues')
 
-    ax = fig.add_subplot(gs[2, 0])
-    ax.axis('off')
-    ax.imshow(img_seq_raw)
+    # colors_list = ['#191970', '#00BFFF', '#FFD700', '#FF8C00', '#D54846', '#800000']
+    # colors_list = ['#191970', '#87CEFA', '#FFB6C1', '#FF69B4', '#FFD700', '#C71585']
 
-    # if seq_str_mode:
-    #     ax = fig.add_subplot(gs[3, 0])
-    #     ax.axis('off')
-    #     ax.imshow(img_str_sal, cmap=cmap_reversed)
-    #     # ax.plot(line_str_raw, '-', color='r', linewidth=1, scalex=False, scaley=False)
-    #
-    #     x = (np.zeros(trace_width) + (1 + 0.01)) * trace_height + 1.5
-    #     ax.plot(x, '-', color='white', linewidth=1.2, scalex=False, scaley=False)
+    # cmap = colors.LinearSegmentedColormap.from_list('How2matplotlib_custom', colors_list, N=10000)
 
-    plt.subplots_adjust(wspace=0, hspace=0)
+    ax1 = fig.add_subplot(gs[0])
+    ax1.axis('off')
+    ax1.imshow(img_seq_sal_logo)
+    # plt.text(x=trace_width - 400, y=10, s='CPRISP ', fontsize=6)
+    # plt.text(x=0, y=20, s='CPRISP ', fontsize=6)
+    plt.text(x=0, y=20, s='CRSP ', fontsize=6)
+
+    gs_sub = gridspec.GridSpecFromSubplotSpec(
+        nrows=2,
+        ncols=1,
+        subplot_spec=gs[1],
+        height_ratios=[1, 2],
+        hspace=-0.7
+    )
+    ax2 = fig.add_subplot(gs_sub[0])
+    ax2.axis('off')
+    # ax2.imshow(img_seq_sal, cmap=cmap_reversed)
+
+    # ax2.pcolormesh(W, cmap=cmap_reversed, edgecolors='white', linewidth=0.1)
+    # ax2.pcolormesh(W, cmap=cmap_reversed, edgecolors='#B1D0F3', linewidth=0.1)
+    # ax2.pcolormesh(W, cmap=cmap_reversed, edgecolors='#173F91', linewidth=0.1)
+    ax2.pcolormesh(W, cmap=cmap_reversed, edgecolor='none')
+
+    rect = plt.Rectangle(
+        (0, 0),
+        W.shape[1],
+        W.shape[0],
+        fill=False,
+        edgecolor='#315F1F',
+        linewidth=1,
+        linestyle='-.'
+    )
+
+    ax2.add_patch(rect)
+    ax2.set_aspect(0.5)
+
+    ax3 = fig.add_subplot(gs_sub[1])
+    ax3.axis('off')
+    ax3.imshow(img_seq_raw)
+
+    # plt.subplots_adjust(wspace=0, hspace=-0.2)
+
+    # plt.tight_layout(pad=0, w_pad=0, h_pad=-1)
+
+    # ax.axhline(y=0, color='black', linewidth=2, linestyle='--')
 
     filepath = outdir
     fig.savefig(filepath, format='png', dpi=300, bbox_inches='tight')
     plt.close('all')
+
+
