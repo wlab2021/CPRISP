@@ -13,7 +13,7 @@ Accurate identification of circular RNA (circRNA)-protein interactions is essent
 # System Requirements
 
 ## Hardware environment
-+ Physical Memory: 503GB.   
++ Physical Memory: 503GB.
 + GPU: NVIDIA-GeForce-RTX-4090.
 
 ## Software requirements
