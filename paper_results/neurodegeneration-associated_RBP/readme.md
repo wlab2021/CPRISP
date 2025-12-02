@@ -61,6 +61,9 @@
 ###### Import the JSON-format network file into Cytoscape, and simultaneously load the exported node score table.
 ###### Merge node attributes and visualize the network by mapping node scores to visual features (size, color, etc.).
 ###### Generate the final network visualization for reporting and interpretation.
-###### The final network figures used in the article can be directly opened via tf.cys and mirna.cys.
+
+
+#### Note: For the figures presented in the article, the Cytoscape network files **tf.cys** and **mirna.cys** can be opened directly in Cytoscape to reproduce the visualizations.
+
 
 
