@@ -22,7 +22,7 @@
 
 
 
-###### Process the tabular data with disdul to obtain filtered\_data\_\* results.
+###### Process the tabular data with disdul.py to obtain filtered\_data\_\* results.
 
 
 
@@ -35,4 +35,32 @@
 ###### ① GO enrichment
 
 ###### ② KEGG enrichment
+
+
+
+
+### Cys Visualization
+#### 1\. Gene Symbol Conversion for Network Analysis
+
+
+
+###### Based on the KEGG enrichment results, convert gene IDs into gene symbols using the functions within GO.R to prepare them for downstream network construction.
+
+#### 2\. Network Construction in NetworkAnalyst
+
+
+
+###### Upload the gene symbol list to NetworkAnalyst, perform network analysis (e.g., PPI network), and download the resulting network files.
+###### During this step, also export the node-level scores (e.g., degree, betweenness, centrality) for each gene.
+
+
+#### 3\. Cytoscape Visualization
+
+
+
+###### Import the JSON-format network file into Cytoscape, and simultaneously load the exported node score table.
+###### Merge node attributes and visualize the network by mapping node scores to visual features (size, color, etc.).
+###### Generate the final network visualization for reporting and interpretation.
+###### The final network figures used in the article can be directly opened via tf.cys and mirna.cys.
+
 
