@@ -40,7 +40,7 @@ $ conda create -n CPRISP python=3.8
 $ conda activate CPRISP
 $ pip install -r requirements.txt
 ```
-You can also create the required environment for xxx by using the provided environment.yml file:
+You can also create the required environment for CPRISP by using the provided environment.yml file:
 ```
 $ conda env create -f CPRISP.yml 
 ```
