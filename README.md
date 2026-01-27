@@ -24,7 +24,7 @@ The package development version is tested on Linux operating systems. The develo
 
 ### Python Dependencies
 `CPRISP` mainly depends on the Python scientific stack.
-The recommended requirements for DSRNAFold are specified as follows:
+The recommended requirements for CPRISP are specified as follows:
 ```
 python: 3.8
 numpy: 1.22.4
